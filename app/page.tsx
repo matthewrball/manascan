@@ -13,7 +13,7 @@ export default function HomePage() {
       <div className="flex flex-col items-center gap-6 text-center">
         {/* App icon */}
         <Image
-          src="/icons/mana-icon-inapp.svg"
+          src="/icons/mana-icon-inapp.png"
           alt="Manascan"
           width={120}
           height={120}
