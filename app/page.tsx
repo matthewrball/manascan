@@ -1,13 +1,24 @@
 import Link from "next/link";
+import Image from "next/image";
+import SettingsPanel from "./_components/settings-panel";
+import BannedListDrawer from "./_components/banned-list-drawer";
 
 export default function HomePage() {
   return (
-    <div className="flex h-full flex-col items-center justify-center px-4 safe-top">
+    <div className="relative flex h-full flex-col items-center justify-center px-4 safe-top">
+      {/* Settings icon — top right */}
+      <div className="absolute left-7 top-4 safe-top">
+        <SettingsPanel />
+      </div>
       <div className="flex flex-col items-center gap-6 text-center">
-        {/* App icon with glass */}
-        <div className="glass-prominent flex h-20 w-20 items-center justify-center rounded-[22px] text-4xl">
-          🌿
-        </div>
+        {/* App icon */}
+        <Image
+          src="/icons/mana-icon.png"
+          alt="Manascan"
+          width={96}
+          height={96}
+          priority
+        />
 
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-label-primary">
@@ -26,7 +37,7 @@ export default function HomePage() {
         {/* Primary CTA — glass button */}
         <Link
           href="/scan"
-          className="glass-tint-clean glass-interactive mt-4 flex h-14 w-full max-w-xs items-center justify-center gap-2 rounded-full text-lg font-semibold text-clean"
+          className="glass-tint-primary glass-interactive mt-4 flex h-14 w-full max-w-xs items-center justify-center gap-2 rounded-full text-lg font-semibold text-primary"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -50,14 +61,16 @@ export default function HomePage() {
         {/* Stats — glass cards */}
         <div className="mt-8 grid w-full max-w-sm grid-cols-2 gap-3">
           <div className="glass-subtle flex flex-col items-center gap-1 rounded-2xl p-3">
-            <span className="text-2xl font-bold text-clean">100+</span>
-            <span className="text-[11px] text-label-tertiary">Banned Items</span>
+            <span className="text-2xl font-bold text-primary">100+</span>
+            <span className="text-[11px] text-label-tertiary">Banned Ingredients</span>
           </div>
           <div className="glass-subtle flex flex-col items-center gap-1 rounded-2xl p-3">
             <span className="text-2xl font-bold text-label-primary">Free</span>
-            <span className="text-[11px] text-label-tertiary">& Open</span>
+            <span className="text-[11px] text-label-tertiary">& Open Source</span>
           </div>
         </div>
+
+        <BannedListDrawer />
       </div>
     </div>
   );

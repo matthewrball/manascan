@@ -35,7 +35,7 @@ export default function BottomNav() {
         <Link
           href="/"
           className={`glass-interactive flex h-14 w-14 items-center justify-center rounded-full transition-colors ${
-            isHome ? "glass-prominent text-clean" : "glass-subtle text-label-tertiary"
+            isHome ? "glass-tint-primary text-primary" : "glass-subtle text-label-tertiary"
           }`}
         >
           <svg
@@ -56,7 +56,7 @@ export default function BottomNav() {
         <Link
           href="/scan"
           className={`glass-interactive flex h-[72px] w-[72px] items-center justify-center rounded-full transition-colors ${
-            isScan ? "glass-tint-clean text-clean" : "glass-prominent text-label-secondary"
+            isScan ? "glass-tint-primary text-primary" : "glass-subtle text-label-tertiary"
           }`}
         >
           <svg
@@ -81,7 +81,7 @@ export default function BottomNav() {
         <Link
           href="/browse"
           className={`glass-interactive flex h-14 w-14 items-center justify-center rounded-full transition-colors ${
-            isBrowse ? "glass-prominent text-clean" : "glass-subtle text-label-tertiary"
+            isBrowse ? "glass-tint-primary text-primary" : "glass-subtle text-label-tertiary"
           }`}
         >
           <svg

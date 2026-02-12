@@ -78,7 +78,7 @@ export default function BrowsePage() {
       <div className="mt-4 space-y-3">
         {loading ? (
           <div className="flex flex-col items-center gap-3 py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-label-tertiary/20 border-t-clean" />
+            <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-label-tertiary/20 border-t-primary" />
             <p className="text-sm text-label-tertiary">Loading products...</p>
           </div>
         ) : products.length === 0 ? (
@@ -105,6 +105,7 @@ export default function BrowsePage() {
         product={selectedProduct?.product ?? null}
         open={!!selectedProduct}
         onClose={() => setSelectedProduct(null)}
+        closeLabel="Close"
       />
     </div>
   );

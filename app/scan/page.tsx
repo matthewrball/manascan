@@ -137,7 +137,7 @@ export default function ScanPage() {
               <div className="mb-3 h-1 w-10 rounded-full bg-label-tertiary/30" />
               <Drawer.Title className="sr-only">Looking up product</Drawer.Title>
               <div className="flex items-center gap-4">
-                <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-label-tertiary/20 border-t-clean" />
+                <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-label-tertiary/20 border-t-primary" />
                 <div>
                   <p className="text-sm font-semibold text-label-primary">
                     Looking up product...
@@ -185,7 +185,7 @@ export default function ScanPage() {
             )}
             <button
               onClick={() => { setError(null); setState("scanning"); }}
-              className="glass-tint-clean glass-interactive mt-2 rounded-full px-6 py-3 font-semibold text-clean"
+              className="glass-tint-primary glass-interactive mt-2 rounded-full px-6 py-3 font-semibold text-primary"
             >
               Try Again
             </button>

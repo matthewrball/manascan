@@ -9,7 +9,7 @@ const config: Record<
     className: "glass-tint-clean text-clean",
   },
   flagged: {
-    label: "FLAGGED",
+    label: "SLOP",
     className: "glass-tint-flagged text-flagged",
   },
   unknown: {

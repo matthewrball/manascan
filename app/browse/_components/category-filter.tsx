@@ -26,7 +26,7 @@ export default function CategoryFilter({
           onClick={() => onChange(cat.value)}
           className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200 ${
             selected === cat.value
-              ? "glass-tint-clean text-clean"
+              ? "glass-tint-primary text-primary"
               : "glass-subtle text-label-tertiary"
           }`}
         >

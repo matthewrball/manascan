@@ -122,10 +122,10 @@ export default async function ResultPage({
         >
           <path d="m15 18-6-6 6-6" />
         </svg>
-        Scanner
+        Back
       </Link>
 
-      <div className="space-y-4">
+      <div className="space-y-5">
         <ProductHeader product={product} />
 
         <IngredientVerdict

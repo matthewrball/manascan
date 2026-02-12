@@ -53,7 +53,7 @@ export default function HistoryPage() {
       <div className="mt-4 space-y-2">
         {loading ? (
           <div className="flex flex-col items-center gap-3 py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-label-tertiary/20 border-t-clean" />
+            <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-label-tertiary/20 border-t-primary" />
           </div>
         ) : history.length === 0 ? (
           <div className="glass-subtle flex flex-col items-center gap-3 rounded-3xl py-12 text-center">
@@ -64,7 +64,7 @@ export default function HistoryPage() {
             </p>
             <Link
               href="/scan"
-              className="glass-tint-clean glass-interactive mt-2 rounded-full px-6 py-2.5 font-medium text-clean"
+              className="glass-tint-primary glass-interactive mt-2 rounded-full px-6 py-2.5 font-medium text-primary"
             >
               Start Scanning
             </Link>

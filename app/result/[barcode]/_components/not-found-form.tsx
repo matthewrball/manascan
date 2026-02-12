@@ -19,7 +19,7 @@ export default function NotFoundForm({ barcode }: { barcode: string }) {
       <div className="mt-6 flex flex-col gap-3 w-full max-w-xs">
         <Link
           href="/scan"
-          className="glass-tint-clean glass-interactive flex h-12 items-center justify-center rounded-full font-medium text-clean"
+          className="glass-tint-primary glass-interactive flex h-12 items-center justify-center rounded-full font-medium text-primary"
         >
           Scan Another Product
         </Link>

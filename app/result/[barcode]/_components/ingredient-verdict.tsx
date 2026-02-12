@@ -10,7 +10,7 @@ const verdicts: Record<
     glassClass: "glass-tint-clean",
   },
   flagged: {
-    title: "Ingredients of concern found",
+    title: "Slop detected",
     description:
       "This product contains one or more ingredients on the banned list.",
     glassClass: "glass-tint-flagged",
@@ -43,7 +43,7 @@ export default function IngredientVerdict({
           <p className="mt-0.5 text-sm text-label-secondary">{v.description}</p>
           {result === "flagged" && flaggedCount > 0 && (
             <p className="mt-1 text-sm font-medium text-flagged">
-              {flaggedCount} flagged ingredient{flaggedCount !== 1 ? "s" : ""}
+              {flaggedCount} slop ingredient{flaggedCount !== 1 ? "s" : ""}
             </p>
           )}
         </div>

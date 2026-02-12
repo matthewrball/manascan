@@ -28,8 +28,8 @@ export default function ProductCard({
             src={product.image_url}
             alt={product.product_name}
             fill
+            sizes="64px"
             className="object-contain"
-            unoptimized
           />
         </div>
       ) : (

@@ -23,8 +23,8 @@ export default function InstallPrompt() {
         {/* Main banner */}
         <div className="relative z-10 glass-prominent rounded-2xl p-3 shadow-lg shadow-black/30">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl glass-tint-clean text-lg">
-              🌿
+            <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-xl glass-tint-primary">
+              <img src="/icons/mana-icon.png" alt="Manascan" className="h-full w-full object-contain" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-sm text-label-primary">Install Manascan</p>

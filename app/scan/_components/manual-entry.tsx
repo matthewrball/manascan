@@ -45,7 +45,7 @@ export default function ManualEntry({ onSubmit, onCancel }: ManualEntryProps) {
               setError("");
             }}
             placeholder="e.g. 049000006346"
-            className="glass-subtle w-full rounded-2xl px-4 py-3 text-lg tracking-widest outline-none focus:ring-2 focus:ring-clean/30"
+            className="glass-subtle w-full rounded-2xl px-4 py-3 text-lg tracking-widest outline-none focus:ring-2 focus:ring-primary/30"
             autoFocus
             maxLength={14}
           />
@@ -61,7 +61,7 @@ export default function ManualEntry({ onSubmit, onCancel }: ManualEntryProps) {
             </button>
             <button
               type="submit"
-              className="glass-tint-clean glass-interactive flex-1 rounded-full py-3 font-medium text-clean"
+              className="glass-tint-primary glass-interactive flex-1 rounded-full py-3 font-medium text-primary"
             >
               Look Up
             </button>

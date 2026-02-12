@@ -15,7 +15,7 @@ export default function IngredientList({
       {flagged && flagged.length > 0 && (
         <div>
           <h3 className="mb-2 text-sm font-semibold uppercase tracking-wider text-flagged">
-            Flagged Ingredients
+            Slop Ingredients
           </h3>
           <div className="space-y-2">
             {flagged.map((item, i) => {

@@ -11,7 +11,7 @@ export default function ScanOverlay({ detected, barcode }: ScanOverlayProps) {
 
       {/* Green flash on detection */}
       {detected && (
-        <div className="absolute inset-0 animate-pulse bg-clean/20" />
+        <div className="absolute inset-0 animate-pulse bg-primary/20" />
       )}
 
       {/* Clear scan window */}
@@ -22,10 +22,10 @@ export default function ScanOverlay({ detected, barcode }: ScanOverlayProps) {
             className="absolute inset-0 rounded-3xl bg-transparent"
             style={{
               border: detected
-                ? "2px solid rgba(34, 197, 94, 0.8)"
+                ? "2px solid rgba(231, 156, 24, 0.8)"
                 : "1px solid rgba(255, 255, 255, 0.25)",
               boxShadow: detected
-                ? "0 0 0 9999px rgba(0,0,0,0.4), 0 0 20px rgba(34, 197, 94, 0.3)"
+                ? "0 0 0 9999px rgba(0,0,0,0.4), 0 0 20px rgba(231, 156, 24, 0.3)"
                 : "0 0 0 9999px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.05)",
             }}
           />
@@ -40,14 +40,14 @@ export default function ScanOverlay({ detected, barcode }: ScanOverlayProps) {
             <div
               key={i}
               className={`absolute h-8 w-8 ${pos} ${
-                detected ? "border-clean" : "border-white/80"
+                detected ? "border-primary" : "border-white/80"
               } transition-colors duration-200`}
             />
           ))}
 
           {/* Animated scan line — pauses on detection */}
           {!detected && (
-            <div className="absolute left-3 right-3 h-0.5 rounded-full bg-clean/80 scan-line-animate" />
+            <div className="absolute left-3 right-3 h-0.5 rounded-full bg-primary/80 scan-line-animate" />
           )}
         </div>
       </div>
@@ -60,17 +60,17 @@ export default function ScanOverlay({ detected, barcode }: ScanOverlayProps) {
           }`}
           style={{
             background: detected
-              ? "rgba(34, 197, 94, 0.25)"
+              ? "rgba(231, 156, 24, 0.25)"
               : "rgba(255, 255, 255, 0.15)",
             backdropFilter: "blur(12px)",
             WebkitBackdropFilter: "blur(12px)",
             border: detected
-              ? "1px solid rgba(34, 197, 94, 0.4)"
+              ? "1px solid rgba(231, 156, 24, 0.4)"
               : "1px solid rgba(255, 255, 255, 0.2)",
           }}
         >
           {detected ? (
-            <p className="text-sm font-semibold text-clean">
+            <p className="text-sm font-semibold text-primary">
               Barcode found{barcode ? `: ${barcode}` : ""}
             </p>
           ) : (
