@@ -166,6 +166,13 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
+/* Settings icon position — move up in PWA standalone mode */
+@media (display-mode: standalone) {
+  .settings-position {
+    top: 0px !important;
+  }
+}
+
 /* Scanner viewfinder animation */
 @keyframes scan-line {
   0%, 100% { top: 0; }

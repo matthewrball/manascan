@@ -6,19 +6,21 @@ import BannedListDrawer from "./_components/banned-list-drawer";
 export default function HomePage() {
   return (
     <div className="relative flex h-full flex-col items-center justify-center px-4 safe-top">
-      {/* Settings icon — top right */}
-      <div className="absolute left-7 top-4 safe-top">
+      {/* Settings icon — top left */}
+      <div className="absolute left-7 top-4 safe-top settings-position">
         <SettingsPanel />
       </div>
       <div className="flex flex-col items-center gap-6 text-center">
-        {/* App icon */}
-        <Image
-          src="/icons/mana-icon.png"
-          alt="Manascan"
-          width={96}
-          height={96}
-          priority
-        />
+        {/* App icon with glass */}
+        <div className="glass-prominent flex h-28 w-28 items-center justify-center rounded-[22px] overflow-hidden">
+          <Image
+            src="/icons/mana-icon.png"
+            alt="Manascan"
+            width={80}
+            height={80}
+            priority
+          />
+        </div>
 
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-label-primary">
