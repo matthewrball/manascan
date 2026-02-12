@@ -11,16 +11,14 @@ export default function HomePage() {
         <SettingsPanel />
       </div>
       <div className="flex flex-col items-center gap-6 text-center">
-        {/* App icon with glass */}
-        <div className="glass-prominent flex h-28 w-28 items-center justify-center rounded-[22px] overflow-hidden">
-          <Image
-            src="/icons/mana-icon.png"
-            alt="Manascan"
-            width={80}
-            height={80}
-            priority
-          />
-        </div>
+        {/* App icon */}
+        <Image
+          src="/icons/mana-icon-inapp.svg"
+          alt="Manascan"
+          width={120}
+          height={120}
+          priority
+        />
 
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-label-primary">
