@@ -128,7 +128,7 @@ export default function BarcodeScanner({
       if (!DetectorClass) {
         try {
           const mod = await import("barcode-detector");
-          DetectorClass = mod.BarcodeDetector;
+          DetectorClass = mod.BarcodeDetector as unknown as typeof BarcodeDetector;
         } catch {
           onErrorRef.current("Barcode detection not supported on this device");
           return;
