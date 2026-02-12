@@ -11,11 +11,37 @@ import ProductHeader from "./_components/product-header";
 import IngredientVerdict from "./_components/ingredient-verdict";
 import IngredientList from "./_components/ingredient-list";
 import NotFoundForm from "./_components/not-found-form";
+import WaterQualityCard from "./_components/water-quality-card";
 import type { Product, AnalysisResult } from "@/types/product";
 
 const hasSupabase =
   process.env.SUPABASE_URL &&
   process.env.SUPABASE_URL !== "your-supabase-url";
+
+const BEVERAGE_TAGS = [
+  "beverages",
+  "waters",
+  "mineral-waters",
+  "spring-waters",
+  "flavored-waters",
+  "sparkling-waters",
+  "carbonated-drinks",
+  "sodas",
+  "juices",
+  "energy-drinks",
+  "sports-drinks",
+  "teas",
+  "iced-teas",
+  "coffees",
+  "soft-drinks",
+];
+
+function isBeverage(categoriesTags?: string[]): boolean {
+  if (!categoriesTags) return false;
+  return categoriesTags.some((tag) =>
+    BEVERAGE_TAGS.some((bev) => tag.toLowerCase().includes(bev))
+  );
+}
 
 export default async function ResultPage({
   params,
@@ -24,6 +50,7 @@ export default async function ResultPage({
 }) {
   const { barcode } = await params;
   let product: Product | null = null;
+  let categoriesTags: string[] | undefined;
 
   // Try Supabase cache first if configured
   if (hasSupabase) {
@@ -48,6 +75,7 @@ export default async function ResultPage({
   if (!product) {
     const offProduct = await fetchProduct(barcode);
     if (offProduct) {
+      categoriesTags = offProduct.categories_tags;
       const ingredientsText = extractIngredientsText(offProduct);
       let analysisResult: AnalysisResult = "unknown";
       let flaggedIngredients = null;
@@ -137,6 +165,8 @@ export default async function ResultPage({
           flagged={product.flagged_ingredients}
           allIngredients={product.ingredients_text}
         />
+
+        {isBeverage(categoriesTags) && <WaterQualityCard />}
 
         {/* Share button — glass */}
         <div className="flex justify-center">

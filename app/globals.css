@@ -154,8 +154,8 @@ body {
 
 /* Interactive glass press effect */
 .glass-interactive {
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.2s ease;
+  transition: transform 0.18s cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 0.18s ease;
 }
 
 .glass-interactive:active {
@@ -166,10 +166,19 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .glass-interactive {
+    transition: none;
+  }
+  .glass-interactive:active {
+    transform: none;
+  }
+}
+
 /* Settings icon position — move up in PWA standalone mode */
 @media (display-mode: standalone) {
   .settings-position {
-    top: 0px !important;
+    top: -1rem !important;
   }
 }
 
@@ -181,6 +190,17 @@ body {
 
 .scan-line-animate {
   animation: scan-line 2s ease-in-out infinite;
+}
+
+/* Single-flash detection pulse */
+@keyframes detect-flash {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.detect-flash {
+  animation: detect-flash 0.6s ease-out forwards;
 }
 
 /* Glass shimmer highlight animation */
@@ -198,4 +218,39 @@ body {
   );
   background-size: 200% 100%;
   animation: glass-shimmer 3s ease-in-out infinite;
+}
+
+/* Content fade-in — used when loading states resolve */
+@keyframes fadeIn {
+  from { opacity: 0; filter: blur(4px); }
+  to { opacity: 1; filter: blur(0px); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Staggered list items */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.35s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+/* Respect reduced motion globally */
+@media (prefers-reduced-motion: reduce) {
+  .scan-line-animate,
+  .glass-shimmer,
+  .detect-flash {
+    animation: none;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

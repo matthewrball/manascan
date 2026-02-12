@@ -44,6 +44,11 @@ export const CATEGORY_META: Record<
     description: "Artificially created trans fatty acids",
     icon: "⚠️",
   },
+  contaminant: {
+    label: "Contaminants",
+    description: "Environmental and packaging contaminants found in beverages and food",
+    icon: "☠️",
+  },
   other: {
     label: "Other Additives",
     description: "Other concerning food additives",

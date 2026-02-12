@@ -19,6 +19,19 @@ export const metadata: Metadata = {
   title: "Manascan — Ingredient Scanner",
   description:
     "Scan food barcodes and check ingredients against a banned list. Let food be thy medicine.",
+  openGraph: {
+    title: "Manascan — Ingredient Scanner",
+    description:
+      "Scan food barcodes and check ingredients against a banned list. Let food be thy medicine.",
+    images: [{ url: "/manascan-preview.png" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Manascan — Ingredient Scanner",
+    description:
+      "Scan food barcodes and check ingredients against a banned list. Let food be thy medicine.",
+    images: ["/manascan-preview.png"],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",

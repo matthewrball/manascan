@@ -10,12 +10,12 @@ export default function InstallPrompt() {
   return (
     <div
       className="fixed bottom-0 left-0 right-0 z-[70]"
-      style={{ animation: "float 3s ease-in-out infinite" }}
+      style={{ animation: "slideUp 0.5s cubic-bezier(0.32, 0.72, 0, 1) forwards" }}
     >
       <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-8px); }
+        @keyframes slideUp {
+          from { transform: translateY(100%); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
         }
       `}</style>
 

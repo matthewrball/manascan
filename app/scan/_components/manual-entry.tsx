@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface ManualEntryProps {
   onSubmit: (barcode: string) => void;
@@ -10,6 +10,57 @@ interface ManualEntryProps {
 export default function ManualEntry({ onSubmit, onCancel }: ManualEntryProps) {
   const [barcode, setBarcode] = useState("");
   const [error, setError] = useState("");
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+
+  // Enter animation
+  useEffect(() => {
+    const overlay = overlayRef.current;
+    const sheet = sheetRef.current;
+    if (!overlay || !sheet) return;
+
+    overlay.animate([{ opacity: 0 }, { opacity: 1 }], {
+      duration: 200,
+      easing: "ease-out",
+      fill: "forwards",
+    });
+
+    sheet.animate(
+      [
+        { transform: "translateY(100%)", opacity: 0 },
+        { transform: "translateY(0)", opacity: 1 },
+      ],
+      {
+        duration: 350,
+        easing: "cubic-bezier(0.32, 0.72, 0, 1)",
+        fill: "forwards",
+      }
+    );
+  }, []);
+
+  const animateOut = (callback: () => void) => {
+    const overlay = overlayRef.current;
+    const sheet = sheetRef.current;
+    if (!overlay || !sheet) {
+      callback();
+      return;
+    }
+
+    sheet.animate(
+      [
+        { transform: "translateY(0)", opacity: 1 },
+        { transform: "translateY(40px)", opacity: 0 },
+      ],
+      { duration: 200, easing: "ease-in", fill: "forwards" }
+    );
+    overlay
+      .animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 200,
+        easing: "ease-in",
+        fill: "forwards",
+      })
+      .finished.then(callback);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,12 +71,24 @@ export default function ManualEntry({ onSubmit, onCancel }: ManualEntryProps) {
       return;
     }
 
-    onSubmit(cleaned);
+    animateOut(() => onSubmit(cleaned));
+  };
+
+  const handleCancel = () => {
+    animateOut(onCancel);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40">
-      <div className="glass-prominent w-full max-w-lg rounded-t-3xl px-6 pb-8 pt-4 safe-bottom">
+    <div
+      ref={overlayRef}
+      className="fixed inset-0 z-50 flex items-end justify-center bg-black/40"
+      style={{ opacity: 0 }}
+    >
+      <div
+        ref={sheetRef}
+        className="glass-prominent w-full max-w-lg rounded-t-3xl px-6 pb-8 pt-4 safe-bottom"
+        style={{ transform: "translateY(100%)" }}
+      >
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-label-tertiary/30" />
         <h3 className="text-lg font-semibold text-label-primary">
           Enter Barcode Manually
@@ -54,7 +117,7 @@ export default function ManualEntry({ onSubmit, onCancel }: ManualEntryProps) {
           <div className="mt-4 flex gap-3">
             <button
               type="button"
-              onClick={onCancel}
+              onClick={handleCancel}
               className="glass-subtle glass-interactive flex-1 rounded-full py-3 font-medium text-label-secondary"
             >
               Cancel

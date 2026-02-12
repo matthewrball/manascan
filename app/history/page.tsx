@@ -56,7 +56,7 @@ export default function HistoryPage() {
             <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-label-tertiary/20 border-t-primary" />
           </div>
         ) : history.length === 0 ? (
-          <div className="glass-subtle flex flex-col items-center gap-3 rounded-3xl py-12 text-center">
+          <div className="animate-fadeIn glass-subtle flex flex-col items-center gap-3 rounded-3xl py-12 text-center">
             <span className="text-4xl">📋</span>
             <p className="font-medium text-label-primary">No scan history</p>
             <p className="text-sm text-label-tertiary">
@@ -74,7 +74,8 @@ export default function HistoryPage() {
             <Link
               key={`${item.barcode}-${i}`}
               href={`/result/${item.barcode}`}
-              className="glass glass-interactive flex items-center gap-3 rounded-2xl p-3"
+              className="animate-slideUp glass glass-interactive flex items-center gap-3 rounded-2xl p-3"
+              style={{ animationDelay: `${Math.min(i * 50, 300)}ms`, opacity: 0 }}
             >
               {item.product?.image_url ? (
                 <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl glass-subtle">

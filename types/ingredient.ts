@@ -7,6 +7,7 @@ export type IngredientCategory =
   | "processing_agent"
   | "flavor_enhancer"
   | "trans_fat"
+  | "contaminant"
   | "other";
 
 export type Severity = "high" | "medium" | "low";

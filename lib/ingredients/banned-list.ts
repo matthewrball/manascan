@@ -1464,4 +1464,100 @@ export const BANNED_INGREDIENTS: BannedIngredient[] = [
     ],
     eNumbers: ["E450"],
   },
+
+  // ---------------------------------------------------------------------------
+  // CONTAMINANTS
+  // ---------------------------------------------------------------------------
+  {
+    canonicalName: "BPA (Bisphenol A)",
+    category: "contaminant",
+    aliases: ["bpa", "bisphenol a"],
+    severity: "high",
+    matchPatterns: [/\bbpa(?![\s-]*free)\b/i, /\bbisphenol\s*a\b/i],
+  },
+  {
+    canonicalName: "BPS (Bisphenol S)",
+    category: "contaminant",
+    aliases: ["bps", "bisphenol s"],
+    severity: "high",
+    matchPatterns: [/\bbps\b/i, /\bbisphenol\s*s\b/i],
+  },
+  {
+    canonicalName: "BPF (Bisphenol F)",
+    category: "contaminant",
+    aliases: ["bpf", "bisphenol f"],
+    severity: "high",
+    matchPatterns: [/\bbpf\b/i, /\bbisphenol\s*f\b/i],
+  },
+  {
+    canonicalName: "PFAS",
+    category: "contaminant",
+    aliases: ["pfas", "perfluoroalkyl substances", "polyfluoroalkyl substances"],
+    severity: "high",
+    matchPatterns: [
+      /\bpfas\b/i,
+      /\bperfluoroalkyl\b/i,
+      /\bpolyfluoroalkyl\b/i,
+    ],
+  },
+  {
+    canonicalName: "PFOA",
+    category: "contaminant",
+    aliases: ["pfoa", "perfluorooctanoic acid"],
+    severity: "high",
+    matchPatterns: [/\bpfoa\b/i, /\bperfluorooctanoic\s*acid\b/i],
+  },
+  {
+    canonicalName: "PFOS",
+    category: "contaminant",
+    aliases: ["pfos", "perfluorooctane sulfonate"],
+    severity: "high",
+    matchPatterns: [/\bpfos\b/i, /\bperfluorooctane\s*sulfo?nate\b/i],
+  },
+  {
+    canonicalName: "Phthalates",
+    category: "contaminant",
+    aliases: ["phthalates", "dehp", "dibutyl phthalate"],
+    severity: "high",
+    matchPatterns: [
+      /\bphthalate[s]?\b/i,
+      /\bdehp\b/i,
+      /\bdibutyl\s*phthalate\b/i,
+    ],
+  },
+  {
+    canonicalName: "Microplastics",
+    category: "contaminant",
+    aliases: ["microplastics", "nanoplastics"],
+    severity: "high",
+    matchPatterns: [/\bmicro[\s-]?plastics?\b/i, /\bnano[\s-]?plastics?\b/i],
+  },
+  {
+    canonicalName: "Vinyl Chloride",
+    category: "contaminant",
+    aliases: ["vinyl chloride"],
+    severity: "high",
+    matchPatterns: [/\bvinyl\s*chloride\b/i],
+  },
+  {
+    canonicalName: "Antimony Trioxide",
+    category: "contaminant",
+    aliases: ["antimony trioxide", "antimony oxide"],
+    severity: "medium",
+    matchPatterns: [/\bantimony\s*(?:tri)?oxide\b/i],
+  },
+  {
+    canonicalName: "Lead (Contaminant)",
+    category: "contaminant",
+    aliases: ["lead contamination", "lead content", "lead detected"],
+    severity: "high",
+    matchPatterns: [/\blead\s*(?:contamina|content|detect)\w*\b/i],
+  },
+  {
+    canonicalName: "Arsenic (Contaminant)",
+    category: "contaminant",
+    aliases: ["arsenic", "inorganic arsenic"],
+    severity: "high",
+    matchPatterns: [/\b(?:inorganic\s*)?arsenic\b/i],
+  },
 ];

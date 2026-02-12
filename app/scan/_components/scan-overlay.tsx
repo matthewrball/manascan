@@ -9,9 +9,9 @@ export default function ScanOverlay({ detected, barcode }: ScanOverlayProps) {
       {/* Darkened corners */}
       <div className="absolute inset-0 bg-black/40" />
 
-      {/* Green flash on detection */}
+      {/* Green flash on detection — single purposeful flash */}
       {detected && (
-        <div className="absolute inset-0 animate-pulse bg-primary/20" />
+        <div className="absolute inset-0 bg-clean/20 detect-flash" />
       )}
 
       {/* Clear scan window */}
@@ -22,10 +22,10 @@ export default function ScanOverlay({ detected, barcode }: ScanOverlayProps) {
             className="absolute inset-0 rounded-3xl bg-transparent"
             style={{
               border: detected
-                ? "2px solid rgba(231, 156, 24, 0.8)"
+                ? "2px solid rgba(34, 197, 94, 0.8)"
                 : "1px solid rgba(255, 255, 255, 0.25)",
               boxShadow: detected
-                ? "0 0 0 9999px rgba(0,0,0,0.4), 0 0 20px rgba(231, 156, 24, 0.3)"
+                ? "0 0 0 9999px rgba(0,0,0,0.4), 0 0 20px rgba(34, 197, 94, 0.3)"
                 : "0 0 0 9999px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.05)",
             }}
           />
@@ -40,7 +40,7 @@ export default function ScanOverlay({ detected, barcode }: ScanOverlayProps) {
             <div
               key={i}
               className={`absolute h-8 w-8 ${pos} ${
-                detected ? "border-primary" : "border-white/80"
+                detected ? "border-clean" : "border-white/80"
               } transition-colors duration-200`}
             />
           ))}
@@ -55,22 +55,20 @@ export default function ScanOverlay({ detected, barcode }: ScanOverlayProps) {
       {/* Bottom pill — instruction or detected barcode */}
       <div className="absolute bottom-32 left-0 right-0 flex justify-center">
         <div
-          className={`rounded-full px-5 py-2 transition-all duration-200 ${
-            detected ? "scale-105" : ""
-          }`}
+          className="rounded-full px-5 py-2 transition-all duration-200"
           style={{
             background: detected
-              ? "rgba(231, 156, 24, 0.25)"
+              ? "rgba(34, 197, 94, 0.25)"
               : "rgba(255, 255, 255, 0.15)",
             backdropFilter: "blur(12px)",
             WebkitBackdropFilter: "blur(12px)",
             border: detected
-              ? "1px solid rgba(231, 156, 24, 0.4)"
+              ? "1px solid rgba(34, 197, 94, 0.4)"
               : "1px solid rgba(255, 255, 255, 0.2)",
           }}
         >
           {detected ? (
-            <p className="text-sm font-semibold text-primary">
+            <p className="text-sm font-semibold text-clean">
               Barcode found{barcode ? `: ${barcode}` : ""}
             </p>
           ) : (
