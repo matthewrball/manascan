@@ -53,7 +53,7 @@ export default function BannedListDrawer() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="glass-subtle glass-interactive flex w-full max-w-sm items-center justify-center gap-2 rounded-2xl p-3"
+        className="glass-prominent glass-interactive flex w-full max-w-sm items-center justify-center gap-2 rounded-full py-3 px-5"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

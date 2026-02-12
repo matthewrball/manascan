@@ -11,14 +11,26 @@ export default function HomePage() {
         <SettingsPanel />
       </div>
       <div className="flex flex-col items-center gap-6 text-center">
-        {/* App icon */}
-        <Image
-          src="/icons/mana-icon-inapp.png"
-          alt="Manascan"
-          width={120}
-          height={120}
-          priority
-        />
+        {/* App icon with glass */}
+        <div
+          className="flex h-32 w-32 items-center justify-center rounded-[28px] overflow-hidden"
+          style={{
+            background: "linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(44, 44, 46, 0.3), rgba(255, 255, 255, 0.04))",
+            backdropFilter: "blur(60px) saturate(250%)",
+            WebkitBackdropFilter: "blur(60px) saturate(250%)",
+            border: "1px solid rgba(255, 255, 255, 0.15)",
+            boxShadow:
+              "0 4px 8px rgba(0, 0, 0, 0.25), 0 20px 48px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.15), inset 0 -1px 1px rgba(0, 0, 0, 0.1), inset 1px 0 1px rgba(255, 255, 255, 0.05)",
+          }}
+        >
+          <Image
+            src="/icons/mana-icon-inapp.png"
+            alt="Manascan"
+            width={110}
+            height={110}
+            priority
+          />
+        </div>
 
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-label-primary">
