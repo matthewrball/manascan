@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manascan — Hackathon Pitch</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #000000;
+    --fg: #f5f5f7;
+    --primary: #E79C18;
+    --primary-glow: rgba(231, 156, 24, 0.25);
+    --clean: #22c55e;
+    --flagged: #ef4444;
+    --caution: #f59e0b;
+    --muted: rgba(235, 235, 245, 0.4);
+    --glass: rgba(44, 44, 46, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.08);
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── Slide Container ─── */
+  .deck {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6vh 8vw;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+    transform: translateY(20px);
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  /* ─── Typography ─── */
+  .headline {
+    font-size: clamp(2.4rem, 5.5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    text-align: center;
+    max-width: 900px;
+  }
+
+  .subheadline {
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--muted);
+    text-align: center;
+    max-width: 700px;
+    margin-top: 1.5rem;
+  }
+
+  .quote {
+    font-size: clamp(1.6rem, 3.5vw, 3rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.4;
+    text-align: center;
+    max-width: 800px;
+    color: var(--fg);
+  }
+
+  .quote-attr {
+    font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+    font-weight: 500;
+    font-style: normal;
+    color: var(--primary);
+    margin-top: 1.5rem;
+    letter-spacing: 0.04em;
+  }
+
+  .accent { color: var(--primary); }
+  .accent-clean { color: var(--clean); }
+  .accent-flagged { color: var(--flagged); }
+
+  /* ─── Glass Cards ─── */
+  .glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  /* ─── Stats Grid ─── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+    color: var(--muted);
+    margin-top: 0.4rem;
+    font-weight: 500;
+  }
+
+  /* ─── Problem Bullets ─── */
+  .problems {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    max-width: 700px;
+    width: 100%;
+  }
+
+  .problem-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+
+  .problem-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    width: 2.4rem;
+    text-align: center;
+  }
+
+  .problem-text {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.5;
+    color: rgba(235, 235, 245, 0.75);
+  }
+
+  .problem-text strong {
+    color: var(--fg);
+    font-weight: 600;
+  }
+
+  /* ─── Feature List ─── */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .feature-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* ─── CTA ─── */
+  .cta-url {
+    display: inline-block;
+    margin-top: 2.5rem;
+    font-size: clamp(1rem, 1.8vw, 1.4rem);
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--primary-glow);
+    padding: 0.8rem 2.2rem;
+    border-radius: 100px;
+    border: 1px solid rgba(231, 156, 24, 0.3);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cta-url:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 40px var(--primary-glow);
+  }
+
+  /* ─── Progress Bar ─── */
+  .progress-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--primary);
+    transition: width 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    z-index: 100;
+    box-shadow: 0 0 12px var(--primary-glow);
+  }
+
+  /* ─── Slide Counter ─── */
+  .slide-counter {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--muted);
+    z-index: 100;
+  }
+
+  /* ─── Nav Hint ─── */
+  .nav-hint {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 2rem;
+    font-size: 0.75rem;
+    color: rgba(235, 235, 245, 0.2);
+    z-index: 100;
+  }
+
+  /* ─── Ambient Glow ─── */
+  .glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  .glow-primary {
+    background: var(--primary);
+    top: -15%;
+    right: -10%;
+  }
+
+  .glow-secondary {
+    background: #6366f1;
+    bottom: -15%;
+    left: -10%;
+  }
+
+  /* ─── Name Origin ─── */
+  .origin-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    font-weight: 500;
+    color: var(--primary);
+    background: var(--primary-glow);
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    border: 1px solid rgba(231, 156, 24, 0.2);
+    margin-bottom: 1.5rem;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 640px) {
+    .features { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .slide { padding: 4vh 6vw; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: Opening Quote -->
+  <div class="slide active" data-index="0">
+    <div class="glow glow-primary"></div>
+    <div class="glow glow-secondary"></div>
+    <p class="quote">
+      "Let food be thy medicine<br>and medicine be thy food."
+    </p>
+    <p class="quote-attr">&#8212; Attributed to Hippocrates</p>
+  </div>
+
+  <!-- SLIDE 2: The Problem -->
+  <div class="slide" data-index="1">
+    <div class="glow glow-primary"></div>
+    <p class="headline">The food we eat is <span class="accent-flagged">broken</span>.</p>
+    <div class="problems">
+      <div class="problem-row">
+        <span class="problem-icon">&#9888;&#65039;</span>
+        <p class="problem-text"><strong>Processed food is practically poison</strong> &#8212; loaded with synthetic additives linked to cancer, hormone disruption, and neurological harm.</p>
+      </div>
+      <div class="problem-row">
+        <span class="problem-icon">&#128373;&#65039;</span>
+        <p class="problem-text"><strong>Toxic ingredients hide behind legal aliases.</strong> Distributors use alternative chemical names to obscure what&#8217;s really in your food.</p>
+      </div>
+      <div class="problem-row">
+        <span class="problem-icon">&#128566;</span>
+        <p class="problem-text"><strong>Existing apps miss serious threats.</strong> Yuka, EWA, and others have blind spots for many harmful additives and their aliases.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Introducing Manascan -->
+  <div class="slide" data-index="2">
+    <div class="glow glow-primary"></div>
+    <div class="glow glow-secondary"></div>
+    <span class="origin-badge">&#127838; Inspired by the biblical concept of Manna</span>
+    <p class="headline">Introducing <span class="accent">Manascan</span></p>
+    <p class="subheadline">
+      An intelligent food product scanner that instantly reveals the quality of what you&#8217;re eating &#8212; catching what other apps miss.
+    </p>
+  </div>
+
+  <!-- SLIDE 4: How It Works -->
+  <div class="slide" data-index="3">
+    <div class="glow glow-primary"></div>
+    <p class="headline" style="font-size: clamp(1.8rem, 3.5vw, 3rem);">How it works</p>
+    <div class="features">
+      <div class="feature glass-card">
+        <span class="feature-icon">&#128247;</span>
+        <span class="feature-text">Scan any barcode instantly with your camera</span>
+      </div>
+      <div class="feature glass-card">
+        <span class="feature-icon">&#129516;</span>
+        <span class="feature-text">AI-powered ingredient analysis in seconds</span>
+      </div>
+      <div class="feature glass-card">
+        <span class="feature-icon">&#128270;</span>
+        <span class="feature-text">Detects hidden aliases for toxic additives</span>
+      </div>
+      <div class="feature glass-card">
+        <span class="feature-icon">&#9989;</span>
+        <span class="feature-text">Clear clean / caution / flagged verdict</span>
+      </div>
+      <div class="feature glass-card">
+        <span class="feature-icon">&#128101;</span>
+        <span class="feature-text">Community-verified product database</span>
+      </div>
+      <div class="feature glass-card">
+        <span class="feature-icon">&#128167;</span>
+        <span class="feature-text">Drink quality &amp; contaminant detection</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: By the Numbers -->
+  <div class="slide" data-index="4">
+    <div class="glow glow-primary"></div>
+    <div class="glow glow-secondary"></div>
+    <p class="headline" style="font-size: clamp(1.8rem, 3.5vw, 3rem);">Built in a day. Built to protect.</p>
+    <div class="stats-grid">
+      <div class="stat glass-card">
+        <div class="stat-value accent">120+</div>
+        <div class="stat-label">Harmful additives indexed</div>
+      </div>
+      <div class="stat glass-card">
+        <div class="stat-value accent-flagged">300+</div>
+        <div class="stat-label">Alias patterns matched</div>
+      </div>
+      <div class="stat glass-card">
+        <div class="stat-value accent-clean">12</div>
+        <div class="stat-label">Contaminant categories</div>
+      </div>
+    </div>
+    <p class="subheadline" style="margin-top: 2rem; font-size: clamp(0.9rem, 1.3vw, 1.1rem);">
+      Including BPA, PFAS, microplastics, phthalates, and other environmental contaminants other apps ignore.
+    </p>
+  </div>
+
+  <!-- SLIDE 6: CTA -->
+  <div class="slide" data-index="5">
+    <div class="glow glow-primary"></div>
+    <div class="glow glow-secondary"></div>
+    <p class="headline">Know what you&#8217;re <span class="accent">really</span> eating.</p>
+    <p class="subheadline">Start scanning products today.</p>
+    <a href="https://manascan.matthewball.me/" target="_blank" rel="noopener" class="cta-url">
+      manascan.matthewball.me
+    </a>
+  </div>
+
+</div>
+
+<!-- Progress -->
+<div class="progress-bar" id="progress"></div>
+<div class="slide-counter" id="counter">1 / 6</div>
+<div class="nav-hint">Arrow keys or click to navigate</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const progress = document.getElementById('progress');
+  const counter = document.getElementById('counter');
+  const total = slides.length;
+  let current = 0;
+
+  function go(index) {
+    if (index < 0 || index >= total) return;
+    slides[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    progress.style.width = ((current + 1) / total * 100) + '%';
+    counter.textContent = (current + 1) + ' / ' + total;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      go(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      go(current - 1);
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    const x = e.clientX / window.innerWidth;
+    go(x > 0.5 ? current + 1 : current - 1);
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) go(dx < 0 ? current + 1 : current - 1);
+  });
+
+  // Init
+  progress.style.width = (1 / total * 100) + '%';
+</script>
+
+</body>
+</html>
