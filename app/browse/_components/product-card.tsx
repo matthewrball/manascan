@@ -1,24 +1,26 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import StatusBadge from "@/app/_components/status-badge";
 import type { CommunityProduct } from "@/types/product";
 
 export default function ProductCard({
   item,
   onVote,
+  onSelect,
 }: {
   item: CommunityProduct;
   onVote?: (id: string) => void;
+  onSelect?: (item: CommunityProduct) => void;
 }) {
   const product = item.product;
   if (!product) return null;
 
   return (
-    <Link
-      href={`/result/${product.barcode}`}
-      className="glass glass-interactive flex gap-3 rounded-2xl p-3"
+    <button
+      type="button"
+      onClick={() => onSelect?.(item)}
+      className="glass glass-interactive flex w-full gap-3 rounded-2xl p-3 text-left"
     >
       {product.image_url ? (
         <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl glass-subtle">
@@ -54,9 +56,9 @@ export default function ProductCard({
       </div>
 
       {onVote && (
-        <button
+        <div
           onClick={(e) => {
-            e.preventDefault();
+            e.stopPropagation();
             onVote(item.id);
           }}
           className="glass-subtle flex shrink-0 flex-col items-center justify-center gap-0.5 rounded-xl px-3 py-2 active:scale-95 transition-transform"
@@ -74,8 +76,8 @@ export default function ProductCard({
           <span className="text-xs font-medium text-label-secondary">
             {item.upvote_count}
           </span>
-        </button>
+        </div>
       )}
-    </Link>
+    </button>
   );
 }

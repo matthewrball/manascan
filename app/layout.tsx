@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import BottomNav from "./_components/bottom-nav";
+import InstallPrompt from "./_components/install-prompt";
 import PageTransition from "./_components/page-transition";
 
 const geistSans = Geist({
@@ -73,6 +74,7 @@ export default function RootLayout({
           <PageTransition>{children}</PageTransition>
         </main>
         <BottomNav />
+        <InstallPrompt />
       </body>
     </html>
   );

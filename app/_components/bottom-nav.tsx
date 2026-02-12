@@ -2,9 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const [isStandalone, setIsStandalone] = useState(false);
+
+  useEffect(() => {
+    setIsStandalone(
+      window.matchMedia("(display-mode: standalone)").matches ||
+        ("standalone" in window.navigator &&
+          (window.navigator as Navigator & { standalone: boolean }).standalone === true)
+    );
+  }, []);
 
   const isHome = pathname === "/";
   const isScan =
@@ -16,7 +26,10 @@ export default function BottomNav() {
     pathname.startsWith("/history/");
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 safe-bottom flex items-end justify-center pb-2">
+    <div
+      className="fixed bottom-0 left-0 right-0 z-50 safe-bottom flex items-end justify-center"
+      style={{ paddingBottom: isStandalone ? 8 : 14 }}
+    >
       <nav className="flex items-end gap-5 px-6">
         {/* Home */}
         <Link

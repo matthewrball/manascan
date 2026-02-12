@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import ProductCard from "./_components/product-card";
 import SearchBar from "./_components/search-bar";
 import CategoryFilter from "./_components/category-filter";
+import ProductDrawer from "@/app/scan/_components/product-drawer";
 import type { CommunityProduct } from "@/types/product";
 
 export default function BrowsePage() {
@@ -11,6 +12,7 @@ export default function BrowsePage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState<CommunityProduct | null>(null);
 
   const fetchProducts = useCallback(async () => {
     setLoading(true);
@@ -89,10 +91,21 @@ export default function BrowsePage() {
           </div>
         ) : (
           products.map((item) => (
-            <ProductCard key={item.id} item={item} onVote={handleVote} />
+            <ProductCard
+              key={item.id}
+              item={item}
+              onVote={handleVote}
+              onSelect={setSelectedProduct}
+            />
           ))
         )}
       </div>
+
+      <ProductDrawer
+        product={selectedProduct?.product ?? null}
+        open={!!selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+      />
     </div>
   );
 }
