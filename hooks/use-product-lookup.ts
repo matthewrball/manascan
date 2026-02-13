@@ -23,9 +23,9 @@ export function useProductLookup() {
 
       setProduct(data.product);
 
-      // Record scan event
+      // Record scan event (fire and forget — don't block UI)
       const deviceId = getDeviceId();
-      await fetch("/api/scan", {
+      fetch("/api/scan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -42,6 +42,12 @@ export default async function ResultPage({
   params: Promise<{ barcode: string }>;
 }) {
   const { barcode } = await params;
+
+  // Validate barcode format to prevent SSRF
+  if (!barcode || !/^\d{8,14}$/.test(barcode)) {
+    return <NotFoundForm barcode={barcode || "invalid"} />;
+  }
+
   let product: Product | null = null;
   let categoriesTags: string[] | undefined;
 

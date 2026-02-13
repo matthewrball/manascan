@@ -28,10 +28,12 @@ export default function ScanPage() {
       setDetectedBarcode(barcode);
       setState("detected");
 
-      await new Promise((r) => setTimeout(r, 400));
-
+      // Run animation delay and lookup in parallel
+      const [result] = await Promise.all([
+        lookup(barcode),
+        new Promise((r) => setTimeout(r, 400)),
+      ]);
       setState("loading");
-      const result = await lookup(barcode);
       if (result) {
         setShowDrawer(true);
         setState("scanning");

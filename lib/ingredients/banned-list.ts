@@ -1561,3 +1561,6 @@ export const BANNED_INGREDIENTS: BannedIngredient[] = [
     matchPatterns: [/\b(?:inorganic\s*)?arsenic\b/i],
   },
 ];
+
+/** Pre-computed count for client-side display (avoids shipping full list) */
+export const BANNED_INGREDIENTS_COUNT = BANNED_INGREDIENTS.length;

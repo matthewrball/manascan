@@ -3,7 +3,7 @@ import Image from "next/image";
 import SettingsPanel from "./_components/settings-panel";
 import TipButton from "./_components/tip-button";
 import BannedListDrawer from "./_components/banned-list-drawer";
-import { BANNED_INGREDIENTS } from "@/lib/ingredients/banned-list";
+import { BANNED_INGREDIENTS_COUNT } from "@/lib/ingredients/banned-list";
 
 export default function HomePage() {
   return (
@@ -49,7 +49,7 @@ export default function HomePage() {
 
         <p className="max-w-sm text-label-secondary">
           Scan food barcodes to instantly check ingredients against{" "}
-          {BANNED_INGREDIENTS.length}+ known harmful additives.
+          {BANNED_INGREDIENTS_COUNT}+ known harmful additives.
         </p>
 
         {/* Primary CTA — glass button */}
@@ -79,7 +79,7 @@ export default function HomePage() {
         {/* Stats — glass cards */}
         <div className="mt-8 grid w-full max-w-sm grid-cols-2 gap-3">
           <div className="glass-subtle flex flex-col items-center gap-1 rounded-2xl p-3">
-            <span className="text-2xl font-bold text-primary">{BANNED_INGREDIENTS.length}+</span>
+            <span className="text-2xl font-bold text-primary">{BANNED_INGREDIENTS_COUNT}+</span>
             <span className="text-[11px] text-label-tertiary">Banned Ingredients</span>
           </div>
           <div className="glass-subtle flex flex-col items-center gap-1 rounded-2xl p-3">

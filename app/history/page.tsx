@@ -84,7 +84,7 @@ export default function HistoryPage() {
                     alt={item.product.product_name}
                     fill
                     className="object-contain"
-                    unoptimized
+                    sizes="48px"
                   />
                 </div>
               ) : (

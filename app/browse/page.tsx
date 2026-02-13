@@ -20,6 +20,12 @@ export default function BrowsePage() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const hasMoreRef = useRef(hasMore);
+  const loadingRef = useRef(loading);
+  const loadingMoreRef = useRef(loadingMore);
+  hasMoreRef.current = hasMore;
+  loadingRef.current = loading;
+  loadingMoreRef.current = loadingMore;
 
   const fetchProducts = useCallback(async (pageNum: number, append: boolean) => {
     if (pageNum === 1) setLoading(true);
@@ -59,14 +65,14 @@ export default function BrowsePage() {
     if (page > 1) fetchProducts(page, true);
   }, [page, fetchProducts]);
 
-  // Infinite scroll via IntersectionObserver
+  // Infinite scroll via IntersectionObserver (stable — no recreation on state change)
   useEffect(() => {
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasMore && !loading && !loadingMore) {
+        if (entries[0].isIntersecting && hasMoreRef.current && !loadingRef.current && !loadingMoreRef.current) {
           setPage((p) => p + 1);
         }
       },
@@ -75,7 +81,7 @@ export default function BrowsePage() {
 
     observer.observe(sentinel);
     return () => observer.disconnect();
-  }, [hasMore, loading, loadingMore]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleVote = async (communityProductId: string) => {
     const deviceId =

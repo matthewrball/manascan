@@ -52,8 +52,8 @@ export default function PageTransition({
       cancelOnFinish(
         el.animate(
           [
-            { opacity: 0, filter: "blur(2px)" },
-            { opacity: 1, filter: "blur(0px)" },
+            { opacity: 0 },
+            { opacity: 1 },
           ],
           {
             duration: 200,
@@ -88,12 +88,10 @@ export default function PageTransition({
           {
             opacity: 0,
             transform: `translateX(${fromRight ? "8%" : "-8%"})`,
-            filter: "blur(4px)",
           },
           {
             opacity: 1,
             transform: "translateX(0)",
-            filter: "blur(0px)",
           },
         ],
         {

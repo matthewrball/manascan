@@ -52,9 +52,10 @@ const serwist = new Serwist({
         ],
       }),
     },
-    // Cache API responses briefly
+    // Cache GET API responses briefly (exclude POST mutations)
     {
-      matcher: ({ url }) => url.pathname.startsWith("/api/"),
+      matcher: ({ url, request }) =>
+        url.pathname.startsWith("/api/") && request.method === "GET",
       handler: new StaleWhileRevalidate({
         cacheName: "api-cache",
         plugins: [

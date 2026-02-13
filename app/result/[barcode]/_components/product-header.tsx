@@ -12,6 +12,7 @@ export default function ProductHeader({ product }: { product: Product }) {
               src={product.image_url}
               alt={product.product_name}
               fill
+              sizes="112px"
               className="object-contain"
             />
           </div>
