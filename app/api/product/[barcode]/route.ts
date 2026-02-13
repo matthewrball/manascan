@@ -1,13 +1,5 @@
 import { NextResponse } from "next/server";
-import {
-  fetchProduct,
-  extractIngredientsText,
-  extractProductName,
-  extractBrand,
-  extractImageUrl,
-} from "@/lib/openfoodfacts/client";
-import { analyzeIngredients } from "@/lib/ingredients/matcher";
-import type { AnalysisResult } from "@/types/product";
+import { lookupAndAnalyze } from "@/lib/openfoodfacts/lookup";
 
 const hasSupabase =
   process.env.SUPABASE_URL &&
@@ -51,48 +43,14 @@ export async function GET(
     }
 
     // Fetch from Open Food Facts
-    const offProduct = await fetchProduct(barcode);
+    const result = await lookupAndAnalyze(barcode);
 
-    if (!offProduct) {
+    if (!result) {
       return NextResponse.json(
         { error: "Product not found", barcode },
         { status: 404 }
       );
     }
-
-    // Extract data
-    const ingredientsText = extractIngredientsText(offProduct);
-    const productName = extractProductName(offProduct);
-    const brand = extractBrand(offProduct);
-    const imageUrl = extractImageUrl(offProduct);
-
-    // Analyze ingredients
-    let analysisResult: AnalysisResult = "unknown";
-    let flaggedIngredients = null;
-
-    if (ingredientsText) {
-      const matches = analyzeIngredients(
-        ingredientsText,
-        offProduct.additives_tags
-      );
-      analysisResult = matches.length > 0 ? "flagged" : "clean";
-      flaggedIngredients = matches.length > 0 ? matches : null;
-    }
-
-    const productData = {
-      id: crypto.randomUUID(),
-      barcode,
-      product_name: productName,
-      brand,
-      image_url: imageUrl,
-      ingredients_text: ingredientsText,
-      ingredients_parsed: offProduct.ingredients || null,
-      analysis_result: analysisResult,
-      flagged_ingredients: flaggedIngredients,
-      source: "openfoodfacts" as const,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
 
     // Try to persist to Supabase if configured
     if (hasSupabase) {
@@ -101,7 +59,7 @@ export async function GET(
         const supabase = await createClient();
         const { data: product } = await supabase
           .from("products")
-          .upsert(productData, { onConflict: "barcode" })
+          .upsert(result.product, { onConflict: "barcode" })
           .select()
           .single();
 
@@ -113,7 +71,7 @@ export async function GET(
       }
     }
 
-    return NextResponse.json({ product: productData, source: "openfoodfacts" });
+    return NextResponse.json({ product: result.product, source: "openfoodfacts" });
   } catch (err) {
     console.error("Product lookup error:", err);
     return NextResponse.json(

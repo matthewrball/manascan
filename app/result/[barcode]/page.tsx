@@ -1,18 +1,11 @@
 import Link from "next/link";
-import {
-  fetchProduct,
-  extractIngredientsText,
-  extractProductName,
-  extractBrand,
-  extractImageUrl,
-} from "@/lib/openfoodfacts/client";
-import { analyzeIngredients } from "@/lib/ingredients/matcher";
+import { lookupAndAnalyze } from "@/lib/openfoodfacts/lookup";
 import ProductHeader from "./_components/product-header";
 import IngredientVerdict from "./_components/ingredient-verdict";
 import IngredientList from "./_components/ingredient-list";
 import NotFoundForm from "./_components/not-found-form";
 import WaterQualityCard from "./_components/water-quality-card";
-import type { Product, AnalysisResult } from "@/types/product";
+import type { Product } from "@/types/product";
 
 const hasSupabase =
   process.env.SUPABASE_URL &&
@@ -73,36 +66,9 @@ export default async function ResultPage({
 
   // Fetch from Open Food Facts if not cached
   if (!product) {
-    const offProduct = await fetchProduct(barcode);
-    if (offProduct) {
-      categoriesTags = offProduct.categories_tags;
-      const ingredientsText = extractIngredientsText(offProduct);
-      let analysisResult: AnalysisResult = "unknown";
-      let flaggedIngredients = null;
-
-      if (ingredientsText) {
-        const matches = analyzeIngredients(
-          ingredientsText,
-          offProduct.additives_tags
-        );
-        analysisResult = matches.length > 0 ? "flagged" : "clean";
-        flaggedIngredients = matches.length > 0 ? matches : null;
-      }
-
-      const productData: Product = {
-        id: crypto.randomUUID(),
-        barcode,
-        product_name: extractProductName(offProduct),
-        brand: extractBrand(offProduct),
-        image_url: extractImageUrl(offProduct),
-        ingredients_text: ingredientsText,
-        ingredients_parsed: offProduct.ingredients || null,
-        analysis_result: analysisResult,
-        flagged_ingredients: flaggedIngredients,
-        source: "openfoodfacts",
-        updated_at: new Date().toISOString(),
-        created_at: new Date().toISOString(),
-      };
+    const result = await lookupAndAnalyze(barcode);
+    if (result) {
+      categoriesTags = result.categoriesTags;
 
       // Try to persist if Supabase is available
       if (hasSupabase) {
@@ -111,7 +77,7 @@ export default async function ResultPage({
           const supabase = await createClient();
           const { data: inserted } = await supabase
             .from("products")
-            .upsert(productData, { onConflict: "barcode" })
+            .upsert(result.product, { onConflict: "barcode" })
             .select()
             .single();
 
@@ -124,7 +90,7 @@ export default async function ResultPage({
       }
 
       if (!product) {
-        product = productData;
+        product = result.product;
       }
     }
   }

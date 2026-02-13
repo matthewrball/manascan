@@ -13,12 +13,10 @@
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.95.3",
     "barcode-detector": "^3.0.8",
-    "html5-qrcode": "^2.3.8",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "serwist": "^9.5.5",
-    "uuid": "^13.0.0",
     "vaul": "^1.1.2"
   },
   "devDependencies": {
@@ -26,7 +24,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/uuid": "^10.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "http-proxy": "^1.18.1",

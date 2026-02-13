@@ -51,9 +51,6 @@ html, body {
 
 body {
   background: var(--color-background);
-}
-
-body {
   color: var(--color-foreground);
   font-family: -apple-system, var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -203,23 +200,6 @@ body {
   animation: detect-flash 0.6s ease-out forwards;
 }
 
-/* Glass shimmer highlight animation */
-@keyframes glass-shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.glass-shimmer {
-  background: linear-gradient(
-    120deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.06) 50%,
-    transparent 70%
-  );
-  background-size: 200% 100%;
-  animation: glass-shimmer 3s ease-in-out infinite;
-}
-
 /* Content fade-in — used when loading states resolve */
 @keyframes fadeIn {
   from { opacity: 0; filter: blur(4px); }
@@ -243,7 +223,6 @@ body {
 /* Respect reduced motion globally */
 @media (prefers-reduced-motion: reduce) {
   .scan-line-animate,
-  .glass-shimmer,
   .detect-flash {
     animation: none;
   }

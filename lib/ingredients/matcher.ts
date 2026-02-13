@@ -228,11 +228,3 @@ function levenshtein(a: string, b: string): number {
 
   return matrix[b.length][a.length];
 }
-
-/** Quick check: is a product clean? */
-export function isClean(
-  ingredientsText: string,
-  additivesTags?: string[]
-): boolean {
-  return analyzeIngredients(ingredientsText, additivesTags).length === 0;
-}
