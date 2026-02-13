@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import SettingsPanel from "./_components/settings-panel";
-import TipButton from "./_components/tip-button";
 import BannedListDrawer from "./_components/banned-list-drawer";
 import { BANNED_INGREDIENTS_COUNT } from "@/lib/ingredients/banned-list";
 
@@ -11,10 +10,6 @@ export default function HomePage() {
       {/* Settings icon — top left */}
       <div className="absolute left-7 top-4 safe-top settings-position">
         <SettingsPanel />
-      </div>
-      {/* Tip button — top right */}
-      <div className="absolute right-5 top-4 safe-top settings-position">
-        <TipButton />
       </div>
       <div className="flex flex-col items-center gap-6 text-center">
         {/* App icon with glass */}
